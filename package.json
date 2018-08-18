@@ -1,0 +1,24 @@
+{
+  "name": "cloud-printer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "cli-spinner": "^0.2.8",
+    "debug": "^3.1.0",
+    "minimist": "^1.2.0",
+    "socket.io-client": "^2.1.1",
+    "uuid": "^3.3.2"
+  },
+  "bin": "src/app.js",
+  "pkg": {
+    "assets": "assets/**/*"
+  }
+}
