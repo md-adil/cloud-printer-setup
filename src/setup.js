@@ -5,11 +5,17 @@ const io = require('socket.io-client'),
 	{ exec } = require('child_process');
 
 module.exports = async () => {
-	// const socket = io(`${ config.host }/setup`);
-	const serviceLoader = new Spinner("Installing service...");
-	serviceLoader.start();
-	await service.install();
-	serviceLoader.stop();
-	console.log('Service has been installed successfully.');
-	console.log('Close the window');
+	try {
+		// const socket = io(`${ config.host }/setup`);
+		const serviceLoader = new Spinner("Installing service...");
+		serviceLoader.start();
+		await service.install();
+		serviceLoader.stop();
+		process.stdout.write("\n");
+		console.log('Service has been installed successfully.');
+		console.log('Close the window');
+
+	} catch(err) {
+		console.error(err);
+	}
 }

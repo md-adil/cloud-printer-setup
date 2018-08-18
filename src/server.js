@@ -6,24 +6,34 @@ const os = require('os'),
 	fs = require('fs'),
 	path = require('path'),
 	debug = require('debug')('app:server'),
+	writeFile = Promise.promisify(fs.writeFile),
 	config = require('./config.js');
 
-const host = `${config.host}/printer`;
+module.exports = () => {
+	console.log('Conencting');
+	const host = `${config.host}/printers`;
+	console.log(host);
+	const socket = io(host, {
+		query: { name: os.hostname() }
+	});
+	listenForEvents(socket);
+}
 
-const writeFile = Promise.promisify(fs.writeFile);
+const listenForEvents = (socket) => {
+	socket.on('connect', () => {
+		console.log('Connected to cloud');
+	});
 
-const socket = io(host, {
-	query: { name: os.hostname() }
-});
+	socket.on('print', (data, obj) => {
+		console.log("Print command", obj.name);
+		putFile(data, obj);
+	});
 
-socket.on('connect', () => {
-	debug('Connected to cloud');
-});
+	socket.on('error', (err) => {
+		console.error(err);
+	});
+}
 
-socket.on('print', (data, obj) => {
-	debug("Print command: ", obj.name);
-	putFile(data, obj);
-});
 
 const putFile = async (data, obj) => {
 	try {

@@ -8,7 +8,9 @@ const rl = require('readline').createInterface({
 	path = require('path'),
 	argv = require('minimist')(process.argv.slice(2));
 
-switch(argv._[0]) {
+process.env.DEBUG = '*';
+
+switch((argv._[0] || '').toLowerCase()) {
 	case 'server':
 		server();
 		break;

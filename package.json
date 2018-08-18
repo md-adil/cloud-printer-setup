@@ -19,6 +19,6 @@
   },
   "bin": "src/app.js",
   "pkg": {
-    "assets": "assets/**/*"
+    "assets": "assets/*"
   }
 }

@@ -1,6 +1,6 @@
 <configuration>
   <!-- ID of the service. It should be unique accross the Windows system-->
-  <id>cloud-printer</id>
+  <id>piston-printer</id>
   <!-- Display name of the service -->
   <name>Cloud printer Piston</name>
   <!-- Service description -->
