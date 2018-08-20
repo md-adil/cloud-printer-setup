@@ -1,4 +1,6 @@
 node_modules
 /cloud-printer
-/cloud-printer.exe
+/*.exe
 /.env
+*.log
+*.rar

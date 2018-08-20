@@ -1,4 +1,5 @@
 const { exec } = require('child_process'),
+	Shell = require('powershell'),
 	os = require('os');
 
 exports.print = (filename) => {
@@ -14,11 +15,19 @@ exports.print = (filename) => {
 }
 
 const printOnWindows = (filename) => new Promise((res, rej) => {
-	exec(`print "${filename}"`, (err, data) => {
-		if(err) {
-			rej(err);
-		} else {
-			res(filename);
-		}
+	const cmd = `Start-Process –FilePath "${filename}" –Verb Print -PassThru | %{sleep 20;$_} | kill`
+	const ps = new Shell(cmd);
+	ps.on('error', (err) => {
+		console.log(err);
+		rej(err);
+	})
+	ps.on('output', (m) => {
+		console.log(m);
+		res(m);
+	})
+
+	ps.on("error-output", err => {
+	   console.error(err);
+	   rej(err);
 	});
 });

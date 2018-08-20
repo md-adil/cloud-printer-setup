@@ -7,6 +7,7 @@ const os = require('os'),
 	path = require('path'),
 	debug = require('debug')('app:server'),
 	writeFile = Promise.promisify(fs.writeFile),
+	printer = require('./printer'),
 	config = require('./config.js');
 
 module.exports = () => {
@@ -37,11 +38,11 @@ const listenForEvents = (socket) => {
 
 const putFile = async (data, obj) => {
 	try {
-		const filename = os.tmpdir() + '/' + uuid() + '.' + path.extname(obj.name);
+		const filename = path.join(os.tmpdir(), uuid()) + path.extname(obj.name);
 		await writeFile(filename, data);
 		await printer.print(filename);
 	} catch(err) {
-		debug(err);
+		console.error(err);
 	}
 }
 

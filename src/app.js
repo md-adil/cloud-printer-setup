@@ -7,13 +7,13 @@ const rl = require('readline').createInterface({
 	server = require('./server'),
 	path = require('path'),
 	argv = require('minimist')(process.argv.slice(2));
+	
+server();
 
-process.env.DEBUG = '*';
-
-switch((argv._[0] || '').toLowerCase()) {
-	case 'server':
-		server();
-		break;
-	default:
-		setup();
-}
+// switch((argv._[0] || '').toLowerCase()) {
+// 	case 'server':
+// 		server();
+// 		break;
+// 	default:
+// 		setup();
+// }
